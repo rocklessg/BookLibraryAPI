@@ -15,7 +15,6 @@ namespace BookLibrary
     {
         public static void Main(string[] args)
         {
-
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File(
                 path: "logs\\log-.txt",
