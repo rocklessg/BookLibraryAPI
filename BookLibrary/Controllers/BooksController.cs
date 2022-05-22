@@ -41,7 +41,7 @@ namespace BookLibrary.Controllers
         public async Task<IActionResult> GetAllBooksAsync([FromQuery] RequestParams requestParams)
         {
             var books = await _bookQueryCommand.GetAllAsync(requestParams);
-            var bookLists = _mapper.Map<IList<BookResponseDTO>>(books).Where(f => f.IsFavorite == true);
+            var bookLists = _mapper.Map<IList<BookResponseDTO>>(books);
             return Ok(bookLists);
         }
 
