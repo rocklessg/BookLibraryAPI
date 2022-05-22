@@ -1,4 +1,5 @@
 using BookLibrary.Infrastructure.Data.DatabaseContexts;
+using BookLibrary.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,8 @@ namespace BookLibrary
             services.AddDbContext<BookLibraryDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookLibraryConnection"))
             );
+
+            services.InfrastructureServicesResolve();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
