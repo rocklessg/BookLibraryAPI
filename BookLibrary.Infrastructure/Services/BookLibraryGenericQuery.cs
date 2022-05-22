@@ -14,11 +14,11 @@ using X.PagedList;
 
 namespace BookLibrary.Infrastructure.Services
 {
-    public class CategoryQueryCommand<T> : ICategoryQueryCommand<T> where T : class, IEntityBase, new()
+    public class BookLibraryGenericQuery<T> : IBookLibraryGenericQuery<T> where T : class, IEntityBase, new()
     {
         private readonly BookLibraryDbContext _context;
 
-        public CategoryQueryCommand(BookLibraryDbContext context)
+        public BookLibraryGenericQuery(BookLibraryDbContext context)
         {
             _context = context;
         }

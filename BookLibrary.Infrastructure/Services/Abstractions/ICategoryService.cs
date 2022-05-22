@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Infrastructure.Services.Abstractions
 {
-    public interface ICategoryService : ICategoryQueryCommand<Category>
+    public interface ICategoryService : IBookLibraryGenericQuery<Category>
     {
     }
 }

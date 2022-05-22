@@ -9,8 +9,8 @@ namespace BookLibrary.Extensions
     {
         public static void DomainServicesResolve(this IServiceCollection services)
         {
-            services.AddScoped<IBookQueryCommand<Book>, BookQueryCommand<Book>>();
-            services.AddScoped<ICategoryQueryCommand<Category>, CategoryQueryCommand<Category>>();
+            services.AddScoped<IBookLibraryGenericQuery<Book>, BookLibraryGenericQuery<Book>>();
+            services.AddScoped<IBookLibraryGenericQuery<Category>, BookLibraryGenericQuery<Category>>();
         }
     }
 }
