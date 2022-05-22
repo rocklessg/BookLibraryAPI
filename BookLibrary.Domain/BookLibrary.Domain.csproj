@@ -9,4 +9,8 @@
     <Folder Include="Models\DTO\CategoryDTO\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
+  </ItemGroup>
+
 </Project>

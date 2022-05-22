@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Domain.Entities
 {
-    public class BaseEntity : IEntityBase
+    public interface IEntityBase
     {
         public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime LastModifiedAt { get; set; }
     }
 }
