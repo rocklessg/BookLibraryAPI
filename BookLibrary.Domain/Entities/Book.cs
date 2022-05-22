@@ -11,7 +11,7 @@ namespace BookLibrary.Domain.Entities
         public string Title { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
-        public DateTime PublishedDate { get; set; }
+        public string PublishedDate { get; set; }
         public string ISBN { get; set; }
         public int CategoryId { get; set; }
         public string ImageUrl { get; set; }
