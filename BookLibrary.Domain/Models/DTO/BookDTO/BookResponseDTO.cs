@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLibrary.Domain.Entities
+namespace BookLibrary.Domain.Models.DTO.BookDTO
 {
-    public class BaseEntity : IEntityBase
+    public class BookResponseDTO : BookRequestDTO
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime LastModifiedAt { get; set; }
     }
 }
