@@ -1,3 +1,4 @@
+using BookLibrary.Extensions;
 using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using BookLibrary.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -32,24 +33,35 @@ namespace BookLibrary
                 options.UseSqlServer(Configuration.GetConnectionString("BookLibraryConnection"))
             );
 
+            services.DomainServicesResolve();
             services.InfrastructureServicesResolve();
 
+            services.ConfigureHttpCacheHeaders();
+
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookLibrary", Version = "v1" });
-            });
+
+            services.AddCors();
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(opt =>
+            opt.WithOrigins() // put the url of your trusted app to consume this API inside the WithOrigin parenthesis E.g WithOrigin("localhost:3003")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookLibrary v1"));
             }
+
+            app.ConfigureExceptionhandler();
+            app.UseHttpCacheHeaders();
 
             app.UseRouting();
 
