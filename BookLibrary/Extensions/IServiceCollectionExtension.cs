@@ -11,6 +11,8 @@ namespace BookLibrary.Extensions
         {
             services.AddScoped<IBookLibraryGenericQuery<Book>, BookLibraryGenericQuery<Book>>();
             services.AddScoped<IBookLibraryGenericQuery<Category>, BookLibraryGenericQuery<Category>>();
+            services.AddScoped<ICategoryManagement, CategoryManagement>();
+            services.AddScoped<ICategoryManagementService, CategoryManagementService>();
         }
     }
 }

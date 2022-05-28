@@ -9,7 +9,7 @@ namespace BookLibrary.Domain.Entities
     public class BaseEntity : IEntityBase
     {
         public int Id { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
         public DateTime LastModifiedAt { get; set; }
     }
 }

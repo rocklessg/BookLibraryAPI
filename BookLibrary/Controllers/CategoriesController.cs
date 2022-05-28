@@ -17,12 +17,14 @@ namespace BookLibrary.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly IBookLibraryGenericQuery<Category> _categoryQueryCommand;
+        private readonly ICategoryManagementService _categoryManagementService;
         private readonly ILogger<CategoriesController> _logger;
         private readonly IMapper _mapper;
 
-        public CategoriesController(IBookLibraryGenericQuery<Category> categoryQueryCommand, ILogger<CategoriesController> logger, IMapper mapper)
+        public CategoriesController(IBookLibraryGenericQuery<Category> categoryQueryCommand, ICategoryManagementService categoryManagementService, ILogger<CategoriesController> logger, IMapper mapper)
         {
             _categoryQueryCommand = categoryQueryCommand;
+            _categoryManagementService = categoryManagementService;
             _logger = logger;
             _mapper = mapper;
         }
@@ -72,22 +74,31 @@ namespace BookLibrary.Controllers
         /// </summary>
         ///<response code="201">Returned for a category added successfuly</response>
         ///
+        //[HttpPost]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public async Task<IActionResult> AddNewCategoryAsync([FromBody] CategoryRequestDTO categoryDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        _logger.LogError($"Invalid POST attemp in {nameof(AddNewCategoryAsync)}");
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var category = _mapper.Map<Category>(categoryDto);
+        //    await _categoryQueryCommand.AddAsync(category);
+        //    //await _categoryManagementService.AddNewCategoryAsync(categoryDto);
+
+        //    return CreatedAtRoute("GetCategoryAsync", new { id = category.Id }, category);
+        //}
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddNewCategoryAsync([FromBody] CategoryRequestDTO categoryDto)
+        public async Task<IActionResult> AddCategoryAsync([FromBody] CategoryResponseDTO payload)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError($"Invalid POST attemp in {nameof(AddNewCategoryAsync)}");
-                return BadRequest(ModelState);
-            }
-
-            var category = _mapper.Map<Category>(categoryDto);
-            await _categoryQueryCommand.AddAsync(category);
-
-            return CreatedAtRoute("GetCategoryAsync", new { id = category.Id }, category);
+            payload.Id = await _categoryManagementService.AddNewCategoryAsync(payload);
+            return CreatedAtRoute("GetCategoryAsync", new { id = payload.Id }, payload);
         }
 
         /// <summary>
