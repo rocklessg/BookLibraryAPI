@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookLibrary.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,6 @@ namespace BookLibrary.Domain.Models.DTO.CategoryDTO
 {
     public class CategoryResponseDTO : CategoryRequestDTO
     {
-        public int Id { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public int Id { get; set; }        
     }
 }
