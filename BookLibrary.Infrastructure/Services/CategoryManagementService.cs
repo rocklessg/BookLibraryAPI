@@ -39,6 +39,13 @@ namespace BookLibrary.Infrastructure.Services
                     {
                         Title = name,
                         CategoryId = categoryId,
+                        Author = newCategory.Author,
+                        Publisher = newCategory.Publisher,
+                        PublishedDate = newCategory.PublishedDate,
+                        ISBN = newCategory.ISBN,
+                        ImageUrl = newCategory.ImageUrl,
+                        Description = newCategory.Description,
+                        IsFavorite = newCategory.IsFavorite,
                         CreatedAt = DateTime.Now,
                         LastModifiedAt = DateTime.Now,
                     };
