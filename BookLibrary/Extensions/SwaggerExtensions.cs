@@ -12,7 +12,7 @@ namespace BookLibrary.Extensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Phonebook API",
+                    Title = "Book Library API",
                     Version = "v1",
                     Description = @"API service for creating, deleting, and updating books and categories entries in a library",
                     Contact = new OpenApiContact
