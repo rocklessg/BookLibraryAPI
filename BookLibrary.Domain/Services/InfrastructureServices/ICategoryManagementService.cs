@@ -9,6 +9,6 @@ namespace BookLibrary.Domain.Services.InfrastructureServices
 {
     public interface ICategoryManagementService
     {
-        Task<int> AddNewCategoryAsync(CategoryResponseDTO newCategory);
+        Task<int> AddNewCategoryAsync(CategoryRequestDTO newCategory);
     }
 }

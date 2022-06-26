@@ -95,7 +95,7 @@ namespace BookLibrary.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddCategoryAsync([FromBody] CategoryResponseDTO payload)
+        public async Task<IActionResult> AddCategoryAsync([FromBody] CategoryRequestDTO payload)
         {
             payload.Id = await _categoryManagementService.AddNewCategoryAsync(payload);
             return CreatedAtRoute("GetCategoryAsync", new { id = payload.Id }, payload);
