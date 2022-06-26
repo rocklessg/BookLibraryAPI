@@ -1,21 +1,20 @@
-﻿using BookLibrary.Domain.Entities;
-using System;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookLibrary.Domain.Entities;
 
 namespace BookLibrary.Domain.Models.DTO.CategoryDTO
 {
-    public class CategoryResponseDTO : CategoryRequestDTO
+    public class CategoryResponseDTO
     {
         public int Id { get; set; }
-        public string Author { get; set; }
-        public string Publisher { get; set; }
-        public string PublishedDate { get; set; }
-        public string ISBN { get; set; }
-        public string ImageUrl { get; set; }
-        public string Description { get; set; }
-        public bool? IsFavorite { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Books { get; set; }
+        //[Required]
+        //public ICollection<Book> Books { get; set; } = new List<Book>();
+
     }
 }

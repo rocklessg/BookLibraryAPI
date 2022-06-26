@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using BookLibrary.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Domain.Models.DTO.CategoryDTO
 {
-    public class CategoryRequestDTO
+    public class CategoryRequestDTO : CategoryResponseDTO
     {
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Books { get; set; }
-
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string PublishedDate { get; set; }
+        public string ISBN { get; set; }
+        public string ImageUrl { get; set; }
+        public string Description { get; set; }
+        public bool? IsFavorite { get; set; }
     }
 }

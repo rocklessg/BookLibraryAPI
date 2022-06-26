@@ -20,21 +20,23 @@ namespace BookLibrary.Infrastructure.Services
             _categoryManagement = categoryManagement;
         }
 
-        public async Task<int> AddNewCategoryAsync(CategoryResponseDTO newCategory)
+        public async Task<int> AddNewCategoryAsync(CategoryRequestDTO newCategory)
         {
             Category category = new();
             int categoryId;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 category.Name = newCategory.Name;
-                category.CreatedAt = DateTime.Now;
-                category.LastModifiedAt = DateTime.Now;
+                //category.Books = newCategory.Book;
+                //category.CreatedAt = DateTime.Now;
+                //category.LastModifiedAt = DateTime.Now;
 
                 categoryId = await _categoryManagement.AddCategoryAsync(category);
 
                 List<Book> books = new();
                 foreach (string name in newCategory.Books.Split(','))
                 {
+
                     Book book = new()
                     {
                         Title = name,
@@ -47,7 +49,7 @@ namespace BookLibrary.Infrastructure.Services
                         Description = newCategory.Description,
                         IsFavorite = newCategory.IsFavorite,
                         CreatedAt = DateTime.Now,
-                        LastModifiedAt = DateTime.Now,
+                        LastModifiedAt = DateTime.Now
                     };
                     books.Add(book);
                 }
