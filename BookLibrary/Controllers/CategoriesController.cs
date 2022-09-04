@@ -4,10 +4,8 @@ using BookLibrary.Domain.Models.DTO.BookDTO;
 using BookLibrary.Domain.Models.DTO.CategoryDTO;
 using BookLibrary.Domain.Models.Pagination;
 using BookLibrary.Domain.Services.InfrastructureServices;
-using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,16 +20,13 @@ namespace BookLibrary.Controllers
         private readonly ICategoryManagementService _categoryManagementService;
         private readonly ILogger<CategoriesController> _logger;
         private readonly IMapper _mapper;
-        private readonly BookLibraryDbContext _context;
 
-        public CategoriesController(IBookLibraryGenericQuery<Category> categoryQueryCommand, ICategoryManagementService categoryManagementService,
-            ILogger<CategoriesController> logger, IMapper mapper, BookLibraryDbContext context)
+        public CategoriesController(IBookLibraryGenericQuery<Category> categoryQueryCommand, ICategoryManagementService categoryManagementService, ILogger<CategoriesController> logger, IMapper mapper)
         {
             _categoryQueryCommand = categoryQueryCommand;
             _categoryManagementService = categoryManagementService;
             _logger = logger;
             _mapper = mapper;
-            _context = context;
         }
 
         /// <summary>
@@ -45,8 +40,7 @@ namespace BookLibrary.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllCategoriesAsync([FromQuery] RequestParams requestParams)
         {
-            var categories = await _context.Categories.Include(b => b.Books).ToListAsync();
-            //var categories = await _categoryQueryCommand.GetAllAsync(requestParams);
+            var categories = await _categoryQueryCommand.GetAllAsync(requestParams);
             var categoriesList = _mapper.Map<IList<CategoryResponseDTO>>(categories);
             return Ok(categoriesList);
         }
