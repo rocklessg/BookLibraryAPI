@@ -1,5 +1,8 @@
+using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -15,6 +18,16 @@ namespace BookLibrary
     {
         public static void Main(string[] args)
         {
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<BookLibraryDbContext>();
+                db.Database.Migrate();
+            }
+            host.Run();
+
+
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File(
                 path: "logs\\log-.txt",

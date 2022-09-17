@@ -19,6 +19,6 @@ namespace BookLibrary.Domain.Entities
         public bool? IsFavorite { get; set; }
 
         //Establishing relationship
-        public Category Category { get; set; }
+        //public virtual Category Category { get; set; }
     }
 }

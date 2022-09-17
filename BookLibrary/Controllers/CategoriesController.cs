@@ -7,6 +7,7 @@ using BookLibrary.Domain.Services.InfrastructureServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,15 +19,17 @@ namespace BookLibrary.Controllers
     {
         private readonly IBookLibraryGenericQuery<Category> _categoryQueryCommand;
         private readonly ICategoryManagementService _categoryManagementService;
+        private readonly IBookLibraryGenericQuery<Book> _bookQueryCommand;
         private readonly ILogger<CategoriesController> _logger;
         private readonly IMapper _mapper;
 
-        public CategoriesController(IBookLibraryGenericQuery<Category> categoryQueryCommand, ICategoryManagementService categoryManagementService, ILogger<CategoriesController> logger, IMapper mapper)
+        public CategoriesController(IBookLibraryGenericQuery<Category> categoryQueryCommand, ICategoryManagementService categoryManagementService, ILogger<CategoriesController> logger, IMapper mapper, IBookLibraryGenericQuery<Book> bookQueryCommand)
         {
             _categoryQueryCommand = categoryQueryCommand;
             _categoryManagementService = categoryManagementService;
             _logger = logger;
             _mapper = mapper;
+            _bookQueryCommand = bookQueryCommand;
         }
 
         /// <summary>
@@ -42,6 +45,12 @@ namespace BookLibrary.Controllers
         {
             var categories = await _categoryQueryCommand.GetAllAsync(requestParams);
             var categoriesList = _mapper.Map<IList<CategoryResponseDTO>>(categories);
+            foreach(var category in categoriesList)
+            {
+                Func<Book, bool> bookCategories = x => x.CategoryId == category.Id;
+                category.Books = await _bookQueryCommand.GetAllAsyncWithoutParams(bookCategories);
+
+            }
             return Ok(categoriesList);
         }
 
@@ -63,6 +72,8 @@ namespace BookLibrary.Controllers
                     _logger.LogError($"Invalid GET attemp in {nameof(GetCategoryAsync)}");
                     return NotFound();
                 }
+                Func<Book, bool> bookCategories = x => x.CategoryId == category.Id;
+                category.Books = await _bookQueryCommand.GetAllAsyncWithoutParams(bookCategories);
                 var results = _mapper.Map<CategoryResponseDTO>(category);
                 return Ok(results);
             }

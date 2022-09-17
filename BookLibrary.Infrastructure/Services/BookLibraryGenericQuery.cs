@@ -1,4 +1,5 @@
 ﻿using BookLibrary.Domain.Entities;
+using BookLibrary.Domain.Models.DTO.CategoryDTO;
 using BookLibrary.Domain.Models.Pagination;
 using BookLibrary.Domain.Services.InfrastructureServices;
 using BookLibrary.Infrastructure.Data.DatabaseContexts;
@@ -40,6 +41,8 @@ namespace BookLibrary.Infrastructure.Services
         }
 
         public async Task<IEnumerable<T>> GetAllAsync(RequestParams requestParams) => await _context.Set<T>().ToListAsync();
+    
+        public async Task<IEnumerable<T>> GetAllAsyncWithoutParams(Func<T, bool> query) => await _context.Set<T>().Where(query).ToListAsync();
 
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
         {

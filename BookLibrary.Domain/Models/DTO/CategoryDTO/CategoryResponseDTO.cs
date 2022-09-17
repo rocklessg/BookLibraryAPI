@@ -12,7 +12,7 @@ namespace BookLibrary.Domain.Models.DTO.CategoryDTO
         public string Name { get; set; }
 
         [Required]
-        public string Books { get; set; }
+        public IEnumerable<Book> Books { get; set; }
         //[Required]
         //public ICollection<Book> Books { get; set; } = new List<Book>();
 

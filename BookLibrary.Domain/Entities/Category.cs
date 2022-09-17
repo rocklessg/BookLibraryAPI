@@ -15,6 +15,6 @@ namespace BookLibrary.Domain.Entities
         public string Name { get; set; }
 
         // Establishing one to many relationship
-        public ICollection<Book> Books { get; set; }
+        public IEnumerable<Book> Books { get; set; }
     }
 }

@@ -34,12 +34,12 @@ namespace BookLibrary.Infrastructure.Services
                 categoryId = await _categoryManagement.AddCategoryAsync(category);
 
                 List<Book> books = new();
-                foreach (string name in newCategory.Books.Split(','))
+                foreach (var bookModel in newCategory.Books)  //I think it is better for your request to take list of books instead of splitting by comma.
                 {
 
                     Book book = new()
                     {
-                        Title = name,
+                        Title = bookModel.Title,
                         CategoryId = categoryId,
                         Author = newCategory.Author,
                         Publisher = newCategory.Publisher,
