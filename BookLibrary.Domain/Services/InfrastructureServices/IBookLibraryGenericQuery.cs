@@ -13,6 +13,7 @@ namespace BookLibrary.Domain.Services.InfrastructureServices
     public interface IBookLibraryGenericQuery<T> where T : class, IEntityBase, new()
     {
         Task<IEnumerable<T>> GetAllAsync(RequestParams requestParams);
+        Task<IEnumerable<T>> GetAllAsyncWithoutParams(Func<T, bool> query);
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
 
         Task<IPagedList<T>> GetPagedList(
