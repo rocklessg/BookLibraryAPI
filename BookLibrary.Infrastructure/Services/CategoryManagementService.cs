@@ -2,6 +2,7 @@
 using BookLibrary.Domain.Entities;
 using BookLibrary.Domain.Models.DTO.CategoryDTO;
 using BookLibrary.Domain.Services.InfrastructureServices;
+using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,18 +37,24 @@ namespace BookLibrary.Infrastructure.Services
                 List<Book> books = new();
                 foreach (var bookModel in newCategory.Books)  //I think it is better for your request to take list of books instead of splitting by comma.
                 {
-
                     Book book = new()
                     {
                         Title = bookModel.Title,
                         CategoryId = categoryId,
-                        Author = newCategory.Author,
-                        Publisher = newCategory.Publisher,
-                        PublishedDate = newCategory.PublishedDate,
-                        ISBN = newCategory.ISBN,
-                        ImageUrl = newCategory.ImageUrl,
-                        Description = newCategory.Description,
-                        IsFavorite = newCategory.IsFavorite,
+                        Author = bookModel.Author,
+                        Publisher = bookModel.Publisher,
+                        PublishedDate = bookModel.PublishedDate,
+                        ISBN = bookModel.ISBN,
+                        ImageUrl = bookModel.ImageUrl,
+                        Description = bookModel.Description,
+                        IsFavorite = bookModel.IsFavorite,
+                        //Author = newCategory.Author,
+                        //Publisher = newCategory.Publisher,
+                        //PublishedDate = newCategory.PublishedDate,
+                        //ISBN = newCategory.ISBN,
+                        //ImageUrl = newCategory.ImageUrl,
+                        //Description = newCategory.Description,
+                        //IsFavorite = newCategory.IsFavorite,
                         CreatedAt = DateTime.Now,
                         LastModifiedAt = DateTime.Now
                     };

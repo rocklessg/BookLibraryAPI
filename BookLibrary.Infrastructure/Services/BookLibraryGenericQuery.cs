@@ -41,7 +41,7 @@ namespace BookLibrary.Infrastructure.Services
         }
 
         public async Task<IEnumerable<T>> GetAllAsync(RequestParams requestParams) => await _context.Set<T>().ToListAsync();
-    
+
         public async Task<IEnumerable<T>> GetAllAsyncWithoutParams(Func<T, bool> query) => await _context.Set<T>().Where(query).ToListAsync();
 
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)

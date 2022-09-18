@@ -4,17 +4,8 @@ using BookLibrary.Domain.Entities;
 
 namespace BookLibrary.Domain.Models.DTO.CategoryDTO
 {
-    public class CategoryResponseDTO
+    public class CategoryResponseDTO : CategoryRequestDTO
     {
-        public int Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public IEnumerable<Book> Books { get; set; }
-        //[Required]
-        //public ICollection<Book> Books { get; set; } = new List<Book>();
 
     }
 }
